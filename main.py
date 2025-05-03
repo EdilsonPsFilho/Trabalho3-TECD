@@ -7,13 +7,16 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+import os
 
 #DESCRIÇÃO
 #“Como se deu a evolução dos principais temas das manchetes de Economia no Brasil nos últimos 30 dias?”
 
 #COLETA DE DADOS (NewsData.io)
-API_KEY = "pub_84635f44ee6aed80b58353ba8bb27a624aaeb"
-url = f"https://newsdata.io/api/1/latest?country=br&category=business&apikey={API_KEY}"
+load_dotenv()
+api_key = os.getenv("API_KEY")
+url = f"https://newsdata.io/api/1/latest?country=br&category=business&apikey={api_key}"
 resp = requests.get(url)
 resp.raise_for_status()
 items = resp.json().get('results', [])
